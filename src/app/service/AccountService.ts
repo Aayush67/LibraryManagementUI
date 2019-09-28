@@ -10,11 +10,25 @@ import {catchError, tap} from 'rxjs/operators';
 export class AccountService {
   constructor(private http: HttpClient) {}
 
-  registration(data): Observable<any> {
+  registration(data , email): Observable<any> {
     console.log('In service');
     // const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa('user:secret123') });
     // headers.append('Content-Type', 'application/json');
-    return this.http.post(environment.SERVER_URL + '/account/register', data);
+    return this.http.post(environment.SERVER_URL + '/account/register/' + email, data);
+  }
+
+  updateUser(data , email): Observable<any> {
+    console.log('In service');
+    // const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa('user:secret123') });
+    // headers.append('Content-Type', 'application/json');
+    return this.http.post(environment.SERVER_URL + '/account/updateUser/' + email, data);
+  }
+
+  deleteUser(userId): Observable<any> {
+    console.log('In service');
+    // const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa('user:secret123') });
+    // headers.append('Content-Type', 'application/json');
+    return this.http.delete(environment.SERVER_URL + '/account/deleteUser/' + userId);
   }
 
   login(credentials): Observable<any> {
@@ -69,6 +83,14 @@ export class AccountService {
   home(): Observable<any> {
   // console.log("Service")
     return this.http.get(environment.SERVER_URL + '/home');
+  }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(environment.SERVER_URL + '/account/getAllUsers');
+  }
+
+  getUserById(userId: number): Observable<any> {
+    return this.http.get(environment.SERVER_URL + '/account/getUserById?userId=' + userId);
   }
 
 }

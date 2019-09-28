@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef, MatPaginator, MatTableDataSource} from '@angular/material';
-import {MessageBoxComponent} from '../common/message-box/message-box.component';
 import {BookService} from '../service/book.service';
+import {DatePipe} from '@angular/common';
+import {FineDialogComponent} from '../common/fine-dialog/fine-dialog.component';
 
 @Component({
   selector: 'app-account',
@@ -10,8 +11,9 @@ import {BookService} from '../service/book.service';
 })
 export class AccountComponent implements OnInit {
   username;
-  displayedColumns: string[] = ['position', 'name', 'publication', 'author', 'book_available', 'yop' , 'borrow' ];
+  displayedColumns: string[] = ['sno', 'name', 'publication', 'author', 'yearOfPublication' , 'issue_date', 'return_date', 'action'];
   dataSource = new MatTableDataSource<any>();
+  datePipe = new DatePipe('en-US');
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private dialog: MatDialog, private bookService: BookService) { }
@@ -19,39 +21,50 @@ export class AccountComponent implements OnInit {
   ngOnInit() {
     this.username = localStorage.getItem('username');
     this.dataSource.paginator = this.paginator;
-    this.bookService.getUserBook(localStorage.getItem('userId')).subscribe( res =>{
-        console.log('res',res);
+    const todayDate = new Date();
+    this.bookService.getUserBook(localStorage.getItem('userId')).subscribe( response => {
+        response.responseData.map( book => {
+          let fine = 0;
+          const dateReturn = new Date(book.returnDate);
+          if (todayDate.getTime() > dateReturn.getTime()) {
+            const timeDifferenceMs = Math.abs(dateReturn.getTime() - todayDate.getTime());
+            const differenceDays = Math.ceil(timeDifferenceMs / (1000 * 3600 * 24)) - 1;
+            fine = differenceDays * 10;
+          }
+          book.fine = fine;
+        });
+        this.dataSource = new MatTableDataSource<any>(response.responseData);
+        this.dataSource.paginator = this.paginator;
     });
 
   }
 
-  returnBook(){
-
+  returnBook(book) {
     const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = false;
+    dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
-
     dialogConfig.data = {
-      message: 'Book Returned Successfully'
+      fine: book.fine
+    };
+    dialogConfig.height = '210px';
+    const data = {
+      userId: localStorage.getItem('userId'),
+      bookId: book.id,
+      fine: book.fine,
+      issuedDate: book.issueDate,
+      returnedDate: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
     };
 
-    this.dialog.open(MessageBoxComponent, dialogConfig);
+    const dialogRef = this.dialog.open(FineDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe( res => {
+      if ( res === 'settleFine') {
+        this.bookService.returnBook(data).subscribe( returnedBook => {
+         // const bookReturnDialogRef = this.dialog.open(MessageBoxComponent, dialogConfig);
+         // bookReturnDialogRef.afterClosed().subscribe( response => {
+            this.ngOnInit();
+          // });
+        });
+      }
+    });
   }
-
 }
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  book_available: number;
-  publication: string;
-  author: string;
-  yop: number;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Book1' , publication: 'pub1' , author: 'auth1', book_available : 10 , yop: 2013},
-  {position: 2, name: 'Book2', publication: 'pub2' , author: 'auth2' , book_available : 10 , yop: 2014},
-  {position: 3, name: 'Book3', publication: 'pub3' , author: 'auth3', book_available : 10 , yop: 2015 },
-
-];

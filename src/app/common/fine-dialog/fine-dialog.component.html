@@ -1,0 +1,13 @@
+<div style="width: 380px;">
+<div mat-dialog-title align="center" style="font-family: inherit">Return Book</div>
+<mat-dialog-content >
+
+  <mat-card>
+    <mat-label>Fine Amount: &nbsp;&nbsp; {{fine}}</mat-label>
+  </mat-card>
+</mat-dialog-content>
+<div mat-dialog-actions align="center">
+  <button  mat-raised-button color="primary" (click)="dialogRef.close('settleFine')">{{buttonLabel}}</button>
+  <button mat-raised-button style="background: #a59595;color: white" (click)="dialogRef.close()">Cancel</button>
+</div>
+</div>

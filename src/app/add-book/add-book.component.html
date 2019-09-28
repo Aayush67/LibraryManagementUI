@@ -1,0 +1,30 @@
+<mat-card style="margin-top:10px">
+  <mat-card-header align="center">
+    <mat-card-title align="center">{{buttonLabelAddUpdate}} Book</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="form-field">
+    <form [formGroup]="addBookForm">
+      <mat-form-field>
+        <input matInput formControlName="name" placeholder="Enter Book Name">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="publication" placeholder="Enter Publication">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="author" placeholder="Enter Author Name">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="published_year" placeholder="Enter Year Of Publication" maxlength=4 (keypress)="numberOnly($event)">
+      </mat-form-field>
+      <!--        <mat-form-field>-->
+      <!--          <input matInput formControlName="age" placeholder="Enter Age" maxlength=3 (keypress)="numberOnly($event)">-->
+      <!--        </mat-form-field>-->
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" [disabled]="!addBookForm.valid" (click)="addBook()">{{buttonLabelAddUpdate}}</button>
+    <button mat-raised-button color="warn" routerLink="/bookList">{{buttonLabelShowCancel}}</button>
+  </mat-card-actions>
+</mat-card>
+<!--<app-register ></app-register>-->

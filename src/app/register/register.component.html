@@ -11,13 +11,6 @@
                  placeholder="Enter your name" />
         </mat-form-field>
 
-        <mat-form-field>
-          <input id="name"
-                 matInput
-                 formControlName="age"
-                 placeholder="Enter your age" />
-        </mat-form-field>
-
 
         <mat-form-field>
           <input id="email"
@@ -25,6 +18,32 @@
                  formControlName="email"
                  placeholder="Enter your email" />
         </mat-form-field>
+
+        <mat-form-field>
+          <input id="address"
+                 matInput
+                 formControlName="address"
+                 placeholder="Enter address" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <input id="phone"
+                 matInput
+                 formControlName="phone"
+                 placeholder="Enter phone" maxlength=10
+                 (keypress)="numberOnly($event)" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <input id="age"
+                 matInput
+                 formControlName="age"
+                 placeholder="Enter your age"
+                 maxlength=3
+                 (keypress)="numberOnly($event)" />
+        </mat-form-field>
+
+
 
 <!--        <mat-form-field>-->
 <!--          <input id="password"-->

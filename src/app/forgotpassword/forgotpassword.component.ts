@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
@@ -14,9 +14,9 @@ export class ForgotpasswordComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) data) { }
 
   ngOnInit() {
-    this.dialogRef.updateSize('25%', '40%');
+    // this.dialogRef.updateSize('25%', '40%');
     this.forgotPasswordForm = this.fb.group({
-      email: ['']
+      email: ['' , [Validators.required, Validators.email]]
     });
   }
   reset() {

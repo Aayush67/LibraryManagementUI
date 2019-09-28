@@ -27,6 +27,12 @@ import { SearchComponent } from './search/search.component';
 import { AccountComponent } from './account/account.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { MessageBoxComponent } from './common/message-box/message-box.component';
+import { FineDialogComponent } from './common/fine-dialog/fine-dialog.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import { AddBookComponent } from './add-book/add-book.component';
+import { UserListComponent } from './user-list/user-list.component';
+import {ToastrModule} from 'ngx-toastr';
+import { BookListComponent } from './book-list/book-list.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +45,11 @@ import { MessageBoxComponent } from './common/message-box/message-box.component'
     AccountComponent,
     WelcomeComponent,
     MessageBoxComponent,
-
+    FineDialogComponent,
+    AddUserComponent,
+    AddBookComponent,
+    UserListComponent,
+    BookListComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +66,7 @@ import { MessageBoxComponent } from './common/message-box/message-box.component'
     MatIconModule,
     HttpClientModule,
     MDBBootstrapModule.forRoot(),
+    ToastrModule.forRoot(),
     MatPaginatorModule,
     MatTableModule,
     MatButtonModule,
@@ -66,6 +77,6 @@ import { MessageBoxComponent } from './common/message-box/message-box.component'
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ForgotpasswordComponent, MessageBoxComponent]
+  entryComponents: [ForgotpasswordComponent, MessageBoxComponent, FineDialogComponent]
 })
 export class AppModule { }

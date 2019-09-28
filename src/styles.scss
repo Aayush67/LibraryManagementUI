@@ -2,9 +2,17 @@
 //@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 //@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~ngx-toastr/toastr.css';
 
+/*.toast-container > div {
+  opacity:0;
+}*/
 body {
   margin: 0;
+}
+
+table {
+  width: 100%;
 }
 
 .spacer {
@@ -46,3 +54,10 @@ body {
   padding:10px 10px 0px 10px;
 }
 
+.form-field .mat-form-field-wrapper{
+  width:390px;
+}
+
+.forgot-password-dialog .mat-form-field-wrapper{
+  width:280px;
+}
