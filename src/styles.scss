@@ -61,3 +61,9 @@ table {
 .forgot-password-dialog .mat-form-field-wrapper{
   width:280px;
 }
+
+.book-dialog-container .mat-dialog-container{
+  padding: 5px 5px 20px 5px !important;
+  overflow: hidden !important;
+}
+

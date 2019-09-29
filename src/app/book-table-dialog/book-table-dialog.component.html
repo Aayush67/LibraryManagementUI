@@ -1,0 +1,30 @@
+<div [ngClass]="{'book-found': books.length > 0, 'book-not-found': books.length === 0}">
+<!--  [ngClass]="{'my-class': step=='step1', 'my-class2':step=='step2' }"-->
+
+  <h2 mat-dialog-title *ngIf="books.length === 0" align="center">No Books Found</h2>
+  <mat-dialog-content *ngIf="books.length > 0">
+    <table>
+      <tr style="background: #f1ebe6;font-size: 15px" class="font-class">
+        <th>S. No.</th>
+        <th>Name</th>
+        <th>Publication</th>
+        <th>Year Of Publication</th>
+        <th>Issue Date</th>
+        <th>Return Date</th>
+      </tr>
+      <tr style="background: #eff5f5;font-size: 14px;" class="font-class" *ngFor="let data of books">
+        <td>{{books.indexOf(data) + 1}}</td>
+        <td>{{data.name}}</td>
+        <td>{{data.publication}}</td>
+        <td>{{data.published_year}}</td>
+        <td>{{data.issueDate}}</td>
+        <td>{{data.returnDate}}</td>
+      </tr>
+    </table>
+  </mat-dialog-content>
+  <mat-divider *ngIf="books.length >0"></mat-divider>
+  <mat-dialog-actions align="end">
+    <button mat-button [ngClass]="{'close-button': books.length === 0}" (click)="dialogRef.close('true')">Close</button>
+  </mat-dialog-actions>
+</div>
+

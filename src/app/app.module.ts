@@ -11,7 +11,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatDividerModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -33,6 +33,7 @@ import { AddBookComponent } from './add-book/add-book.component';
 import { UserListComponent } from './user-list/user-list.component';
 import {ToastrModule} from 'ngx-toastr';
 import { BookListComponent } from './book-list/book-list.component';
+import { BookTableDialogComponent } from './book-table-dialog/book-table-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { BookListComponent } from './book-list/book-list.component';
     AddUserComponent,
     AddBookComponent,
     UserListComponent,
-    BookListComponent
+    BookListComponent,
+    BookTableDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -70,13 +72,14 @@ import { BookListComponent } from './book-list/book-list.component';
     MatPaginatorModule,
     MatTableModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDividerModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ForgotpasswordComponent, MessageBoxComponent, FineDialogComponent]
+  entryComponents: [ForgotpasswordComponent, MessageBoxComponent, FineDialogComponent,BookTableDialogComponent]
 })
 export class AppModule { }

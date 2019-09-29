@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatPaginator, MatTableDataSource} from '@angular/material';
 import {AccountService} from '../service/AccountService';
 import {ToastrService} from 'ngx-toastr';
+import {BookTableDialogComponent} from '../book-table-dialog/book-table-dialog.component';
 
 @Component({
   selector: 'app-user-list',
@@ -14,7 +15,7 @@ export class UserListComponent implements OnInit {
   dataSource = new MatTableDataSource<any>();
   searchTerm = '';
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private accountService: AccountService, private toastr: ToastrService) { }
+  constructor(private accountService: AccountService, private toastr: ToastrService, private dialog: MatDialog) { }
 
   ngOnInit() {
 /*    this.username = localStorage.getItem('username');*/
@@ -38,5 +39,13 @@ export class UserListComponent implements OnInit {
         });
           this.ngOnInit();
       });
+  }
+  openUserBookDialog(userId){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      'userId': userId
+    };
+    dialogConfig.panelClass= 'book-dialog-container';
+    this.dialog.open(BookTableDialogComponent, dialogConfig);
   }
 }
